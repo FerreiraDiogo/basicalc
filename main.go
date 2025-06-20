@@ -39,7 +39,7 @@ func main() {
 	fmt.Println("Type the second operand: ")
 	for {
 		_, err := fmt.Scanf("%f", &secondInput)
-		if err == nil {
+		if err == nil && isNotDivisionByZero(&operator, &secondInput) {
 			break
 		}
 		fmt.Println("You must type a numeric operand")
@@ -51,6 +51,11 @@ func main() {
 	}
 	fmt.Printf("The Calculated value is %f\n", calculatedValue)
 
+}
+
+func isNotDivisionByZero(operator *string, operand *float64) bool {
+
+	return !(*operator == "/" && *operand == 0.0)
 }
 
 func calculate(firstInput *float64, operator *string, secondInput *float64) (float64, error) {
