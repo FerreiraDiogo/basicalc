@@ -12,20 +12,50 @@ func main() {
 	var operator string
 	var secondInput float64
 
-	fmt.Println("==========BASICALC  V1.0.1==========")
+	fmt.Println("==========BASICALC  V1.0.2==========")
 	fmt.Println("Instructions: Type the first operand, press enter. Type the operand and press enter again. Then type the third operand and press enter",
-		"Valid operand values are '+', '-', '*', '/' and '%'")
+		"Valid operator values are '+', '-', '*', '/' and '%'")
 
-	_, err := fmt.Scan(&firstInput, &operator, &secondInput)
-	if err != nil {
-		panic(err)
+	fmt.Println("Type the first operand: ")
+	for {
+		_, err := fmt.Scanf("%f", &firstInput)
+		if err == nil {
+			break
+		} else {
+			fmt.Println("You must type a numeric operand")
+		}
 	}
+
+	fmt.Println("Type the operator: ")
+	for {
+		_, err := fmt.Scanf("%s", &operator)
+		if err == nil && isValidOperand(operator) {
+			break
+		}
+		fmt.Println("Invalid input.Valid operator values are '+', '-', '*', '/' and '%'")
+
+	}
+
+	fmt.Println("Type the second operand: ")
+	for {
+		_, err := fmt.Scanf("%f", &secondInput)
+		if err == nil && isNotDivisionByZero(&operator, &secondInput) {
+			break
+		}
+		fmt.Println("You must type a numeric operand")
+	}
+
 	calculatedValue, calculationError := calculate(&firstInput, &operator, &secondInput)
 	if calculationError != nil {
 		panic(calculationError)
 	}
-	fmt.Println(fmt.Sprintf("The Calculated value is %f", calculatedValue))
+	fmt.Printf("The Calculated value is %f\n", calculatedValue)
 
+}
+
+func isNotDivisionByZero(operator *string, operand *float64) bool {
+
+	return !(*operator == "/" && *operand == 0.0)
 }
 
 func calculate(firstInput *float64, operator *string, secondInput *float64) (float64, error) {
@@ -42,7 +72,15 @@ func calculate(firstInput *float64, operator *string, secondInput *float64) (flo
 	case "%":
 		return math.Mod(*firstInput, *secondInput), nil
 	default:
-		return 0, errors.New("No valid operand was found")
+		return 0, errors.New("no valid operand was found")
 	}
 
+}
+
+func isValidOperand(operand string) bool {
+	switch operand {
+	case "+", "-", "*", "/", "%":
+		return true
+	}
+	return false
 }
