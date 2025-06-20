@@ -11,7 +11,7 @@ func main() {
 	var operator string
 	var secondInput int
 
-	fmt.Println("==========BASICALC==========")
+	fmt.Println("==========BASICALC  V1.0.0==========")
 	fmt.Println("Instructions: Type the first operand, press enter. Type the operand and press enter again. Then type the third operand and press enter",
 		"Valid operand values are '+', '-', '*', '/' and '%'")
 
