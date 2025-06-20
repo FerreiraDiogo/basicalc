@@ -3,31 +3,32 @@ package main
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 func main() {
 
-	var firstInput int
+	var firstInput float64
 	var operator string
-	var secondInput int
+	var secondInput float64
 
-	fmt.Println("==========BASICALC  V1.0.0==========")
+	fmt.Println("==========BASICALC  V1.0.1==========")
 	fmt.Println("Instructions: Type the first operand, press enter. Type the operand and press enter again. Then type the third operand and press enter",
 		"Valid operand values are '+', '-', '*', '/' and '%'")
 
 	_, err := fmt.Scan(&firstInput, &operator, &secondInput)
 	if err != nil {
-		fmt.Println("An input error has occurred: ", err)
+		panic(err)
 	}
 	calculatedValue, calculationError := calculate(&firstInput, &operator, &secondInput)
 	if calculationError != nil {
-		fmt.Println(calculationError)
+		panic(calculationError)
 	}
-	fmt.Println(fmt.Sprintf("The Calculated value is %d", calculatedValue))
+	fmt.Println(fmt.Sprintf("The Calculated value is %f", calculatedValue))
 
 }
 
-func calculate(firstInput *int, operator *string, secondInput *int) (int, error) {
+func calculate(firstInput *float64, operator *string, secondInput *float64) (float64, error) {
 
 	switch *operator {
 	case "+":
@@ -39,7 +40,7 @@ func calculate(firstInput *int, operator *string, secondInput *int) (int, error)
 	case "/":
 		return *firstInput / *secondInput, nil
 	case "%":
-		return *firstInput % *secondInput, nil
+		return math.Mod(*firstInput, *secondInput), nil
 	default:
 		return 0, errors.New("No valid operand was found")
 	}
