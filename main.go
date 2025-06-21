@@ -14,13 +14,13 @@ func main() {
 	var operator string
 	var secondInput string
 	var controlFlag bool = true
+	var lastOps []string = make([]string, 0)
 
-	//var input string
-
-	fmt.Println("==========BASICALC  V1.0.3==========")
+	fmt.Println("==========BASICALC  V1.4.0==========")
 	fmt.Println("Instructions: Just type the inputs as you are prompted", "Valid operator values are '+', '-', '*', '/' and '%', Type 'quit' to end execution")
 
 	for controlFlag {
+		fmt.Println("Operations History: ", lastOps)
 		for controlFlag {
 			fmt.Println("Type the first operand: ")
 			_, err := fmt.Scanf("%s", &firstInput)
@@ -65,7 +65,7 @@ func main() {
 		if !mustBreakExecution(secondInput) && controlFlag {
 			v1, _ := strconv.ParseFloat(firstInput, 64)
 			v2, _ := strconv.ParseFloat(secondInput, 64)
-
+			lastOps = storeOperation(lastOps, firstInput, operator, secondInput)
 			calculatedValue, calculationError := calculate(&v1, &operator, &v2)
 			if calculationError != nil {
 				panic(calculationError)
@@ -77,6 +77,15 @@ func main() {
 
 	}
 
+}
+
+func storeOperation(lastOps []string, firstInput, operator, secondInput string) []string {
+	if len(lastOps) >= 5 {
+		for i := 0; i <= 3; i++ {
+			lastOps[i] = lastOps[i+1]
+		}
+	}
+	return append(lastOps, firstInput+operator+secondInput)
 }
 
 func isNotDivisionByZero(operator *string, operand *float64) bool {
