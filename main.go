@@ -12,9 +12,8 @@ func main() {
 	var operator string
 	var secondInput float64
 
-	fmt.Println("==========BASICALC  V1.0.2==========")
-	fmt.Println("Instructions: Type the first operand, press enter. Type the operand and press enter again. Then type the third operand and press enter",
-		"Valid operator values are '+', '-', '*', '/' and '%'")
+	fmt.Println("==========BASICALC  V1.0.3==========")
+	fmt.Println("Instructions: Just type the inputs as you are prompted", "Valid operator values are '+', '-', '*', '/' and '%', Type 'quit' to end execution")
 
 	fmt.Println("Type the first operand: ")
 	for {
