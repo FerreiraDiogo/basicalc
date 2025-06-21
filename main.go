@@ -15,9 +15,7 @@ func main() {
 	var secondInput string
 	var controlFlag bool = true
 
-	//var input string
-
-	fmt.Println("==========BASICALC  V1.0.3==========")
+	fmt.Println("==========BASICALC  V1.4.0==========")
 	fmt.Println("Instructions: Just type the inputs as you are prompted", "Valid operator values are '+', '-', '*', '/' and '%', Type 'quit' to end execution")
 
 	for controlFlag {
